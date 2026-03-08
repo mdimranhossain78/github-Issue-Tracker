@@ -1,51 +1,50 @@
 
 
 
+const currenTab = 'all'
 
-console.log(newopen)
-function displayBtn(){
-  
-button.forEach(btns=>{
-   const btn = document.createElement('button')
-   btn.className ="btn btn-outline ml-3"
-   btn.textContent = btns.btn_name
-   btn.onclick = () => selectedBtn(btns.id, btn)
+let active = ['active']
+let inactive = ['btn-outline']
 
-   btnContainer.appendChild(btn)
-})
+function showTab(tab){
+
+    const tabs = ['all','open', 'closed'];
+
+    for(let t of tabs){
+
+       const tabName = document.getElementById('btn-' + t)
+
+       if(t === tab){
+        tabName.classList.add(...active)
+        tabName.classList.remove(...inactive)
+       }else{
+        tabName.classList.remove(...active)
+        tabName.classList.add(...inactive)
+       }
+       
+
+    }
+
 }
 
-// button click and work;
 
-function selectedBtn(id, btn){
-  
+
+
  
- const allButton = document.querySelectorAll("#button-container button, #btn-all")
- console.log(allButton)
- allButton.forEach((btn)=>{
-    btn.classList.remove('active')
-    btn.classList.add("btn-outline")
-    
- })
- btn.classList.add('active')
- btn.classList.remove('btn-outline')
-  
-
- 
-
-}
 
 
 
 
-function showLoding(){
-lodingSpener.classList.remove('hidden')
-cardContainer.innerHTML = ""
 
-}
-function hiddenLoding(){
-    lodingSpener.classList.add('hidden')
-}
+
+// function showLoding(){
+// lodingSpener.classList.remove('hidden')
+// cardContainer.innerHTML = ""
+
+// }
+// function hiddenLoding(){
+//     lodingSpener.classList.add('hidden')
+// }
 
 
 async function loadCard() {
