@@ -1,63 +1,112 @@
 
-const button = [
-    {
-        id: 1,
-        btn_name: 'Open'
-    },
-    {
-        id: 2,
-        btn_name: 'closed'
-    }
-]
-
-const btnContainer = document.getElementById('button-container')
-const cardContainer = document.getElementById('card-container')
 
 
 
+console.log(newopen)
 function displayBtn(){
   
 button.forEach(btns=>{
    const btn = document.createElement('button')
    btn.className ="btn btn-outline ml-3"
    btn.textContent = btns.btn_name
+   btn.onclick = () => selectedBtn(btns.id, btn)
 
    btnContainer.appendChild(btn)
 })
 }
 
-async function loadCard() {
-    const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-    const data = await res.json()
-    displayCard(data.data)
+// button click and work;
+
+function selectedBtn(id, btn){
+  
+ 
+ const allButton = document.querySelectorAll("#button-container button, #btn-all")
+ console.log(allButton)
+ allButton.forEach((btn)=>{
+    btn.classList.remove('active')
+    btn.classList.add("btn-outline")
+    
+ })
+ btn.classList.add('active')
+ btn.classList.remove('btn-outline')
+  
+
+ 
 
 }
+
+
+
+
+function showLoding(){
+lodingSpener.classList.remove('hidden')
+cardContainer.innerHTML = ""
+
+}
+function hiddenLoding(){
+    lodingSpener.classList.add('hidden')
+}
+
+
+async function loadCard() {
+    showLoding()
+    const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+    const data = await res.json()
+    hiddenLoding()
+    displayCard(data.data)
+    openData(data.data)
+
+}
+// id": 1,
+// "title": "Fix navigation menu on mobile devices",
+// "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
+// "status": "open",
+// "labels": [
+// "bug",
+// "help wanted"
+// ],
+// "priority": "high",
+// "author": "john_doe",
+// "assignee": "jane_smith",
+// "createdAt": "2024-01-15T10:30:00Z",
+// "updatedAt": "2024-01-15T10:30:00Z"
+
 function displayCard(cards){
     
     cardContainer.innerHTML = ""
 
     cards.forEach(card =>{
-        console.log(card.labels[0])
-        console.log(card.labels[1])
-        
-        
-        
-
+        // console.log(card.labels[0])
+        // console.log(card.labels[1])
         const cardDiv = document.createElement('div')
-        cardDiv.className = "card bg-white p-4 inactive-border shadow-md"
+        let bdrClass = ""
+         
+        if(card.status === "open"){
+            bdrClass = "active-border"
+        }
+        else{
+            bdrClass = "inactive-border"              
+        }
+
+    
         cardDiv.innerHTML = `
-          <p class="text-end">hight</p>
-           <h2 class="font-semibold my-3 text-[20px]">Fix navigation menu on mobile devices</h2>
-           <p class="mb-4 line-clamp-2">The navigation menu doesn't collapse properly on mobile devices</p>
-         <p class="space-x-2"><span class="bg-red-200 p-1 rounded-md">bug</span>  <span  class="bg-red-200 p-1 rounded-md">help wanted</span></p>
+         <div id = "card" class = "card bg-white p-4 ${bdrClass} shadow-md h-[100%]" >
+         
+          <p class="text-end">${card.priority}</p>
+           <h2 class="font-semibold my-3 text-[20px]">${card.title}</h2>
+           <p class="mb-4 line-clamp-2">${card.description}</p>
+         <p class="space-x-2"><span class="bg-red-200 p-1 rounded-md text-[12px]">${card.labels[0]}</span>  <span  class="bg-red-200 p-1 rounded-md text-[12px]">${card.labels[1]}</span></p>
 
          <hr class="my-4">
 
          <div>
-            <p>#1by john_doe</p>
-            <p>1/15/2024</p>
+            <p>#1by <span>${card.author}</span></p>
+            <p>${card.createdAt}</p>
          </div>
 
+         
+         
+         </div>
         
         `
         cardContainer.appendChild(cardDiv)
@@ -66,5 +115,7 @@ function displayCard(cards){
 }
 
 
+
+
+
 loadCard()
-displayBtn()

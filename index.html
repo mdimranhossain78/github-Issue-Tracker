@@ -19,7 +19,7 @@
 </head>
   <body>
     <!-- main part stard -->
-<section id="home-section" class="">
+<section id="home-section" class="hidden">
 
     <header class="mb-15"> 
         <div class="navbar bg-base-100 shadow-sm px-10">
@@ -40,7 +40,9 @@
   <main class="w-10/12 mx-auto">
  <!-- buttons -->
     <div id="button-container" class="bg-white p-6 rounded-md mb-10">
-    <button class="btn btn-outline active">All</button>
+    <button id="btn-all " class=" btn btn-outline active">All</button>
+    <button id="btn-all " class=" btn btn-outline">open</button>
+    <button id="btn-all " class=" btn btn-outline">closed</button>
     
     
     </div>
@@ -62,25 +64,17 @@
     </div>
 
    <!-- all card container -->
-    <div id="card-container" class="grid grid-cols-1 md:grid-cols-4 p-4 gap-4">
+    <div>
+      <div id="card-container" class="grid grid-cols-1 md:grid-cols-4 p-4 gap-4">
 
-        <div class="card bg-white p-4 inactive-border shadow-md">
-            
-             <p class="text-end">hight</p>
-           <h2 class="font-semibold my-3 text-[20px]">Fix navigation menu on mobile devices</h2>
-           <p class="mb-4 line-clamp-2">The navigation menu doesn't collapse properly on mobile devices</p>
-         <p class="space-x-2"><span class="bg-red-200 p-1 rounded-md">bug</span>  <span  class="bg-red-200 p-1 rounded-md">help wanted</span></p>
-
-         <hr class="my-4">
-
-         <div>
-            <p>#1by john_doe</p>
-            <p>1/15/2024</p>
-         </div>
-
-        </div>
+        
 
     </div>
+    <div id="loding-spinner" class="h-[60vh] flex hidden justify-center items-center">
+            <span class="loading loading-dots loading-xl text-center"></span>
+        </div>
+    </div>
+
 
   </main>
 
@@ -95,7 +89,7 @@
 
 
     <!-- login part -->
-    <section id="login-section" class="pt-24 hidden">
+    <section id="login-section" class="pt-24">
         <div class="bg-white w-[520px] p-4 mx-auto">
         <div class="flex flex-col items-center gap-4">
         <div> <img class="" src="./assets/github-logo.png" alt=""> </div>
@@ -134,6 +128,6 @@
         </section>
 
         <script src="./script/script.js"></script>
-        <!-- <script src="./script/login.js"></script> -->
+        <script src="./script/login.js"></script>
   </body>
 </html>
