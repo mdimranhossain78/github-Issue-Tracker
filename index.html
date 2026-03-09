@@ -39,9 +39,9 @@
   <main class="w-10/12 mx-auto">
  <!-- buttons -->
     <div id="button-container" class="bg-white p-6 rounded-md mb-10">
-    <button onclick="showTab('all')" id="btn-all" class=" btn active">All</button>
-    <button onclick="showTab('open')" id="btn-open" class=" btn">open</button>
-    <button  onclick="showTab('closed')" id="btn-closed" class=" btn">closed</button>
+    <button onclick=" filterData('all'),showTab('all')" id="btn-all" class=" btn active">All</button>
+    <button onclick="filterData('open'), showTab('open')" id="btn-open" class=" btn">open</button>
+    <button  onclick="filterData('closed'),  showTab('closed')" id="btn-closed" class=" btn">closed</button>
     
     
     </div>
@@ -57,8 +57,8 @@
           
         </div>
           <div class="flex gap-5">
-                <p class="font-medium"><span class="text-emerald-400"><i class="fa-solid fa-circle text-[10px]"></i> </span>open</p>
-                <p class="font-medium"><span><i class="fa-solid fa-circle text-[10px]"></i> </span> close</p>
+                <p class="font-medium"><span class="text-[#00A96E]"><i class="fa-solid fa-circle text-[10px]"></i> </span>open</p>
+                <p class="font-medium"><span class="text-[#A855F7]"><i class="fa-solid fa-circle text-[10px]"></i> </span> close</p>
             </div>
     </div>
 

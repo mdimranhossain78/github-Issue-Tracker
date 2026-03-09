@@ -12,9 +12,9 @@ body{
 }
 
 .active-border{
-    border-top: 3px solid greenyellow;
+    border-top: 3px solid #00A96E;
 }
 
 .inactive-border{
-    border-top: 3px solid red;
+    border-top: 3px solid #A855F7;
 }

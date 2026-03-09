@@ -106,6 +106,19 @@ function displayCard(cards){
 
 }
 
+// all Data filtering
+
+function filterData(filters){
+ if(filters === 'all'){
+    displayCard(storeApiData)
+    return
+ }
+ const filtered = storeApiData.filter(find=>find.status === filters)
+displayCard(filtered)
+}
+
+
+
 
 
 
