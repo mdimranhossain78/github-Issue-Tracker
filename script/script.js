@@ -115,12 +115,15 @@ function displayCard(cards){
 // all Data filtering
 
 function filterData(filters){
+  showLoding()
  if(filters === 'all'){
     displayCard(storeApiData)
+     hiddenLoding()
     return
  }
  const filtered = storeApiData.filter(find=>find.status === filters)
 displayCard(filtered)
+hiddenLoding()
 }
  
 
