@@ -175,11 +175,16 @@ document.getElementById("my_modal_5").showModal()
 
 async function searchData(){
     showLoding()
-const text = document.getElementById('search').value
- 
+const text = document.getElementById('search').value 
+  if(text.length === 0){
+    alert('pless geven text')
+  displayCard(storeApiData)
+  }else{
 const res = await fetch (` https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
 const data = await res.json()
 displayCard(data.data)
+
+  }
  hiddenLoding()
 }
 
