@@ -1,8 +1,9 @@
 
+const cardContainer = document.getElementById("card-container")
 
+let storeApiData = [];
 
 const currenTab = 'all'
-
 let active = ['active']
 let inactive = ['btn-outline']
 
@@ -28,15 +29,6 @@ function showTab(tab){
 }
 
 
-
-
- 
-
-
-
-
-
-
 // function showLoding(){
 // lodingSpener.classList.remove('hidden')
 // cardContainer.innerHTML = ""
@@ -48,13 +40,14 @@ function showTab(tab){
 
 
 async function loadCard() {
-    showLoding()
-    const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-    const data = await res.json()
-    hiddenLoding()
-    displayCard(data.data)
-    openData(data.data)
 
+  const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+  const data = await res.json()
+  console.log(data)
+    storeApiData = data.data
+    displayCard(storeApiData)
+   
+    
 }
 // id": 1,
 // "title": "Fix navigation menu on mobile devices",
@@ -94,13 +87,13 @@ function displayCard(cards){
           <p class="text-end">${card.priority}</p>
            <h2 class="font-semibold my-3 text-[20px]">${card.title}</h2>
            <p class="mb-4 line-clamp-2">${card.description}</p>
-         <p class="space-x-2"><span class="bg-red-200 p-1 rounded-md text-[12px]">${card.labels[0]}</span>  <span  class="bg-red-200 p-1 rounded-md text-[12px]">${card.labels[1]}</span></p>
+         <div class="space-x-2">${card.labels.map(lebel=>`<span class="bg-red-200 p-1 rounded-md text-[12px]">${lebel}</span>`).join("")}</div>
 
          <hr class="my-4">
 
          <div>
             <p>#1by <span>${card.author}</span></p>
-            <p>${card.createdAt}</p>
+            <p>${new Date(card.createdAt).toLocaleString('en-US')}</p>
          </div>
 
          
