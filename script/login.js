@@ -1,5 +1,4 @@
-const loginSection = document.getElementById('login-section')
-const homeSection = document.getElementById('home-section')
+
 // console.log(homeSection)
 // console.log(homeSection)
 // console.log(loginSection)
@@ -14,8 +13,7 @@ const userName = document.getElementById('user-name')
 
  if(nameValue === 'admin' && passValue === 'admin123'){
     alert('success')
-    loginSection.classList.add('hidden')
-    homeSection.classList.remove('hidden')
+   window.location.assign("./home.html")
  }
  else{
     alert('feiled try agine')

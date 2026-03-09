@@ -1,5 +1,11 @@
 
 const cardContainer = document.getElementById("card-container")
+const loadingSpinner = document.getElementById("loding-spinner")
+
+
+
+const count = document.getElementById("count")
+const ditalsContainer = document.getElementById('ditals-container')
 
 let storeApiData = [];
 
@@ -29,24 +35,24 @@ function showTab(tab){
 }
 
 
-// function showLoding(){
-// lodingSpener.classList.remove('hidden')
-// cardContainer.innerHTML = ""
+function showLoding(){
+loadingSpinner.classList.remove('hidden')
+cardContainer.innerHTML = ""
 
-// }
-// function hiddenLoding(){
-//     lodingSpener.classList.add('hidden')
-// }
+}
+function hiddenLoding(){
+    loadingSpinner.classList.add('hidden')
+}
 
 
 async function loadCard() {
-
+showLoding()
   const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
   const data = await res.json()
   console.log(data)
     storeApiData = data.data
     displayCard(storeApiData)
-   
+   hiddenLoding()
     
 }
 // id": 1,
@@ -82,7 +88,7 @@ function displayCard(cards){
 
     
         cardDiv.innerHTML = `
-         <div id = "card" class = "card bg-white p-4 ${bdrClass} shadow-md h-[100%]" >
+         <div onclick ="modal(${card.id})" id = "card" class = "card bg-white p-4 ${bdrClass} shadow-md h-[100%]" >
          
           <p class="text-end">${card.priority}</p>
            <h2 class="font-semibold my-3 text-[20px]">${card.title}</h2>
@@ -103,7 +109,7 @@ function displayCard(cards){
         `
         cardContainer.appendChild(cardDiv)
     })
-
+ count.innerText = cardContainer.children.length
 }
 
 // all Data filtering
@@ -116,11 +122,66 @@ function filterData(filters){
  const filtered = storeApiData.filter(find=>find.status === filters)
 displayCard(filtered)
 }
+ 
+
+//modal
+
+async function modal(id){
+    console.log(id)
+ const url = (`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+ 
+ const res = await fetch(url)
+const data = await res.json()
+dusplayModal(data.data)
+}
 
 
+function dusplayModal(modal){
+const ditalsContainer = document.getElementById('ditals-container')
+ditalsContainer.innerHTML =`
+ <div class=" space-y-4">
+        <h2 class="p-4 text-2xl font-semibold">${modal.title}</h2>
+        <div class="flex gap-4">
+          <p>${modal.status}</p>
+          <div class="flex gap-4">
+            <p class="text-[14px]  text-gray-500"><span class=""><i class="fa-solid fa-circle text-[8px] pr-4"></i> </span>Opened by ${modal.assignee ||"not found"}</p>
+            <p class="text-[14px] text-gray-500"><span class=""><i class="fa-solid fa-circle text-[8px] pr-4"></i> </span>${new Date(modal.createdAt).toLocaleString('en-US')}</p>
+          
+          </div>
+        </div>
+       <div class="space-x-2">${modal.labels.map(lebel=>`<span class="bg-red-200 p-1 rounded-md text-[12px]">${lebel}</span>`).join("")}</div>
+
+        <p class="line-clamp-2 text-[#64748B py-5]">${modal.description}</p>
+
+        <div class="bg-[#F8FAFC] p-4 flex">
+
+          <div class="flex-1">
+          
+            <p>Assignee:</p>
+             <p class="font-semibold">${modal.assignee}</p>
+         
+          </div>
+          <div class="flex-1">
+            <p>Priority:</p>
+            <p class="bg-lime-200 py-1 px-3 inline font-semibold rounded-md">${modal.priority}</p>
+          </div>
+        </div>
+      </div> 
 
 
+`
+document.getElementById("my_modal_5").showModal()
+}
 
+async function searchData(){
+    showLoding()
+const text = document.getElementById('search').value
+ 
+const res = await fetch (` https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`)
+const data = await res.json()
+displayCard(data.data)
+ hiddenLoding()
+}
 
 
 loadCard()
