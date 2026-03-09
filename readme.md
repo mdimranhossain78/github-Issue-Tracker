@@ -30,7 +30,8 @@
 
     - 4️⃣ What is an arrow function?
 
-    Ans: arrow function is write small and easily wey of mordern javascript (Es6)
+    Ans: arrow function is write small and easily wey of mordern javascript (Es6).
+         we can write single line function. if we are write single line function don't needed function call.
 
     - 5️⃣ What are template literals?
 
